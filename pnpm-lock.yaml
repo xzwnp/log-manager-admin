@@ -12,8 +12,8 @@ dependencies:
     specifier: ^2.3.2
     version: 2.3.2(element-plus@2.3.6)
   '@pureadmin/utils':
-    specifier: ^1.9.6
-    version: 1.9.6(echarts@5.4.2)(vue@3.3.4)
+    specifier: ^2.4.4
+    version: 2.4.7(echarts@5.4.2)(vue@3.3.4)
   '@vueuse/core':
     specifier: ^10.2.0
     version: 10.2.0(vue@3.3.4)
@@ -59,18 +59,27 @@ dependencies:
   qs:
     specifier: ^6.11.2
     version: 6.11.2
+  ramda:
+    specifier: ^0.29.1
+    version: 0.29.1
   responsive-storage:
     specifier: ^2.2.0
     version: 2.2.0
   sortablejs:
     specifier: ^1.15.0
     version: 1.15.0
+  typeit:
+    specifier: 8.7.1
+    version: 8.7.1
   vue:
     specifier: ^3.3.4
     version: 3.3.4
   vue-router:
     specifier: ^4.2.2
     version: 4.2.2(vue@3.3.4)
+  vue-tippy:
+    specifier: ^6.4.1
+    version: 6.4.1(vue@3.3.4)
   vue-types:
     specifier: ^5.1.0
     version: 5.1.0(vue@3.3.4)
@@ -1198,6 +1207,10 @@ packages:
     dev: true
     optional: true
 
+  /@popperjs/core@2.11.8:
+    resolution: {integrity: sha512-P1st0aksCrn9sGZhp8GMYwBnQsbvAWsZAX44oXNNvLHGqAOcoVxmjZiohstwQ7SqKnbR47akdNi+uleWD8+g6A==}
+    dev: false
+
   /@pureadmin/descriptions@1.1.1(element-plus@2.3.6):
     resolution: {integrity: sha512-4BHLKomLU/LxGs5EUA+h+aKNrJEkhrU6+QE8VoWfJZ8VTU6ddvFLT/Pi4WuO5CWNXM9ZjqvHLFFVwEPlKntqtg==}
     peerDependencies:
@@ -1225,8 +1238,8 @@ packages:
       string-hash: 1.1.3
     dev: true
 
-  /@pureadmin/utils@1.9.6(echarts@5.4.2)(vue@3.3.4):
-    resolution: {integrity: sha512-vu9KhKHx7JnHEDq1k0rmesvBDlAF4TD/x7qNyyNkwa8uvdMB/lMMkGoeaKDKjXpp26d9PRhAzRyIG8wZz/ntmw==}
+  /@pureadmin/utils@2.4.7(echarts@5.4.2)(vue@3.3.4):
+    resolution: {integrity: sha512-fUHwZm9wEtcxUk//bs8xoDe0XYAeoU/FbvAF9CM4Y5xBmaaXvzN+sSFCUyUKC08q4tmCyaHBeLNolO3I4t3X6Q==}
     peerDependencies:
       echarts: '*'
       vue: '*'
@@ -5417,6 +5430,10 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
+  /ramda@0.29.1:
+    resolution: {integrity: sha512-OfxIeWzd4xdUNxlWhgFazxsA/nl3mS4/jGZI5n00uWOoSSFRhC1b6gl6xvmzUamgmqELraWp0J/qqVlXYPDPyA==}
+    dev: false
+
   /rc9@2.1.1:
     resolution: {integrity: sha512-lNeOl38Ws0eNxpO3+wD1I9rkHGQyj1NU1jlzv4go2CtEnEQEUfqnIvZG7W+bC/aXdJ27n5x/yUjb6RoT9tko+Q==}
     requiresBuild: true
@@ -6321,6 +6338,12 @@ packages:
     resolution: {integrity: sha512-w89qg7PI8wAdvX60bMDP+bFoD5Dvhm9oLheFp5O4a2QF0cSBGsBX4qZmadPMvVqlLJBBci+WqGGOAPvcDeNSVg==}
     dev: true
 
+  /tippy.js@6.3.7:
+    resolution: {integrity: sha512-E1d3oP2emgJ9dRQZdf3Kkn0qJgI6ZLpyS5z6ZkY1DF3kaQaBsGZsndEpHwx+eC+tYM41HaSNvNtLx8tU57FzTQ==}
+    dependencies:
+      '@popperjs/core': 2.11.8
+    dev: false
+
   /to-fast-properties@2.0.0:
     resolution: {integrity: sha512-/OaKK0xYrs3DmxRYqL/yDc+FxFUVYhDlXMhRmv3z915w2HF1tnN1omB354j8VUGO/hbRzyD6Y3sA7v7GS/ceog==}
     engines: {node: '>=4'}
@@ -6428,6 +6451,11 @@ packages:
     resolution: {integrity: sha512-4dbzIzqvjtgiM5rw1k5rEHtBANKmdudhGyBEajN01fEyhaAIhsoKNy6y7+IN93IfpFtwY9iqi7kD+xwKhQsNJA==}
     engines: {node: '>=8'}
     dev: true
+
+  /typeit@8.7.1:
+    resolution: {integrity: sha512-Bx/O4NMz10NWh9FWYtVwV4XwGHF9UDJfpCZPJRtw2/oUcahFAStU8J0t19aroPfTV6s1UlS5ICoqilOqmEnh2Q==}
+    requiresBuild: true
+    dev: false
 
   /typescript@5.0.4:
     resolution: {integrity: sha512-cW9T5W9xY37cc+jfEnaUvX91foxtHkza3Nw3wkoF4sSlKn0MONdkdEndig/qPBWXNkmplh3NzayQzCiHM4/hqw==}
@@ -6693,6 +6721,15 @@ packages:
       de-indent: 1.0.2
       he: 1.2.0
     dev: true
+
+  /vue-tippy@6.4.1(vue@3.3.4):
+    resolution: {integrity: sha512-PEAKdioZjUvYWz4euxHFSXKJbL6kIKO29/LtQaCBbnd5Vg0U5kL8iLuqRshB2I31pXPSQS0qJsWx56178eS2QA==}
+    peerDependencies:
+      vue: ^3.2.0
+    dependencies:
+      tippy.js: 6.3.7
+      vue: 3.3.4
+    dev: false
 
   /vue-tsc@1.8.1(typescript@5.0.4):
     resolution: {integrity: sha512-GxBQrcb0Qvyrj1uZqnTXQyWbXdNDRY2MTa+r7ESgjhf+WzBSdxZfkS3KD/C3WhKYG+aN8hf44Hp5Gqzb6PehAA==}
