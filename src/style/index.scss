@@ -1,0 +1,53 @@
+@import "./transition";
+@import "./element-plus";
+@import "./sidebar";
+@import "./dark";
+
+/* 自定义全局 CssVar */
+:root {
+  /* 左侧菜单展开、收起动画时长 */
+  --pure-transition-duration: 0.3s;
+}
+
+/* 灰色模式 */
+.html-grey {
+  filter: grayscale(100%);
+}
+
+/* 色弱模式 */
+.html-weakness {
+  filter: invert(80%);
+}
+
+//搜索过滤器
+.filter-container {
+  padding: 10px;
+  background: #ffffff;
+  margin-bottom: 15px
+}
+
+.filter-row {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+}
+
+.filter-item {
+  padding: 10px;
+}
+
+//分页组件
+.pagination-container {
+  margin-top: 15px;
+  width: 100%;
+  padding: 2px 10px 5px 10px;
+  background: #ffffff;
+  position:absolute; //fixed:相对浏览器 absolute:相对父元素 relative:相对自己
+  z-index:999;
+  bottom:0;
+  left: 0;
+}
+
+.container-bg{
+  background: white;
+}
