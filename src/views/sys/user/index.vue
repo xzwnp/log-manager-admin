@@ -20,9 +20,9 @@
     </div>
     <!-- 日志列表 -->
     <el-table :data="records.records" style="width: 100%" v-loading="tableLoading">
-      <el-table-column prop="id" label="ID" min-width="100" />
-      <el-table-column prop="username" label="用户名" min-width="150" />
-      <el-table-column prop="nickname" label="昵称" min-width="150" />
+      <el-table-column prop="id" label="ID" min-width="100"/>
+      <el-table-column prop="username" label="账号" min-width="150"/>
+      <el-table-column prop="nickname" label="姓名" min-width="150"/>
       <el-table-column prop="" label="角色" width="300">
         <template #default="scope">
           <el-tag v-for="role in scope.row.roles">
@@ -45,20 +45,21 @@
         </template>
       </el-table-column>
     </el-table>
-    <pagination class="pagination-container" :total="records.total" v-model:page="listQuery.current" v-model:size="listQuery.size"
+    <pagination class="pagination-container" :total="records.total" v-model:page="listQuery.current"
+                v-model:size="listQuery.size"
                 @pagination="fetchData"></pagination>
     <!-- 添加用户弹窗 -->
     <el-dialog class="addUserForm" v-model="formVisible"
                title="添加用户" center width="500px">
       <el-form :model="form" label-width="120px">
-        <el-form-item label="用户名" style="width: 400px">
-          <el-input v-model="form.username" />
+        <el-form-item label="账号" style="width: 400px">
+          <el-input v-model="form.username"/>
         </el-form-item>
-        <el-form-item label="昵称" style="width: 400px">
-          <el-input v-model="form.nickname" />
+        <el-form-item label="姓名" style="width: 400px">
+          <el-input v-model="form.nickname"/>
         </el-form-item>
         <el-form-item label="密码" style="width: 400px">
-          <el-input model-value="初始密码为admin123,请尽快修改" disabled />
+          <el-input model-value="初始密码为admin123,请尽快修改" disabled/>
         </el-form-item>
         <el-form-item label="角色">
           <el-checkbox-group v-model="form.roles">
@@ -83,17 +84,17 @@
 
 <script lang="ts" setup>
 import * as api from "@/api/user";
-import { reactive, ref } from "vue";
+import {reactive, ref} from "vue";
 import Pagination from "@/components/Pagination/index.vue";
-import { ElMessage, ElMessageBox } from "element-plus";
+import {ElMessage, ElMessageBox} from "element-plus";
 
 defineOptions({
   name: "UserAdmin"
 });
 
 const roleEnum = {
-  SYS_ADMIN: { label: "系统管理员", value: 1 },
-  SYS_USER: { label: "普通用户", value: 2 }
+  SYS_ADMIN: {label: "系统管理员", value: 1},
+  SYS_USER: {label: "普通用户", value: 2}
 };
 
 //用户数据

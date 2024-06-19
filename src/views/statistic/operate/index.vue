@@ -7,18 +7,18 @@
           v-model="listQuery.appName" @change="()=>{listQuery.group = null}"
           class="filter-item" placeholder="应用名称" size="large" style="width: 240px"
           clearable>
-          <el-option v-for="item in Object.keys(apps)" :key="item" :label="item" :value="item" />
+          <el-option v-for="item in Object.keys(apps)" :key="item" :label="item" :value="item"/>
         </el-select>
         <el-select
           v-model="listQuery.group" @change="queryOperates"
           class="filter-item" placeholder="分组名称" size="large" style="width: 240px">
-          <el-option v-for="item in apps[listQuery.appName]" :key="item" :label="item" :value="item" />
+          <el-option v-for="item in apps[listQuery.appName]" :key="item" :label="item" :value="item"/>
         </el-select>
         <el-select
           v-model="listQuery.dimension"
           class="filter-item" placeholder="分组维度" size="large" style="width: 240px"
           clearable>
-          <el-option v-for="item in statisticDimensionEnum" :key="item.value" :label="item.label" :value="item.value" />
+          <el-option v-for="item in statisticDimensionEnum" :key="item.value" :label="item.label" :value="item.value"/>
         </el-select>
         <el-select
           v-model="listQuery.operates"
@@ -52,11 +52,11 @@
 </template>
 
 <script setup lang="ts">
-import { listApps } from "@/api/common";
+import {listApps} from "@/api/common";
 import DateTimePicker from "@/components/DateTimePicker/index.vue";
-import { reactive, ref } from "vue";
+import {reactive, ref} from "vue";
 import bar from "./bar.vue";
-import { listOperates, makeOperateStatistic } from "@/api/statistic";
+import {listOperates, makeOperateStatistic} from "@/api/statistic";
 
 //图表数据获取
 const listQuery = reactive({
@@ -101,10 +101,10 @@ const queryOperates = () => {
 
 //统计维度枚举
 const statisticDimensionEnum = {
-  OPERATE_NAME: { label: "操作名称", value: 1 },
-  OPERATE_COST: { label: "操作耗时", value: 2 },
-  OPERATE_TIME: { label: "操作时间", value: 3 },
-  OPERATE_COUNT: { label: "调用次数", value: 4 }
+  OPERATE_NAME: {label: "操作名称", value: 1},
+  OPERATE_COST: {label: "操作耗时", value: 2},
+  OPERATE_TIME: {label: "操作时间", value: 3},
+  // OPERATE_COUNT: {label: "调用次数", value: 4}
 };
 
 
@@ -114,13 +114,17 @@ queryApps();
 
 <style scoped lang="scss">
 .chart-container {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr); /* 2列等宽 */
-  grid-gap: 10px; /* 间隙 */
-  justify-content: center; /* 水平居中 */
+  //display: grid;
+  //grid-template-columns: repeat(2, 1fr); /* 2列等宽 */
+  //grid-gap: 10px; /* 间隙 */
+  //justify-content: center; /* 水平居中 */
   padding: 10px;
+  display: flex;
+  flex-direction: column;
 
   .chart-item {
+    width: 100%;
+    margin-bottom: 20px;
   }
 }
 </style>

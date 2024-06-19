@@ -7,19 +7,19 @@
           v-model="listQuery.appName" @change="()=>{listQuery.group = null}"
           class="filter-item" placeholder="应用名称" size="large" style="width: 240px"
           clearable>
-          <el-option v-for="item in Object.keys(apps)" :key="item" :label="item" :value="item" />
+          <el-option v-for="item in Object.keys(apps)" :key="item" :label="item" :value="item"/>
         </el-select>
         <el-select
           v-model="listQuery.group" @change="queryLogs"
           class="filter-item" placeholder="分组名称" size="large" style="width: 240px"
           clearable>
-          <el-option v-for="item in apps[listQuery.appName]" :key="item" :label="item" :value="item" />
+          <el-option v-for="item in apps[listQuery.appName]" :key="item" :label="item" :value="item"/>
         </el-select>
         <el-select
           v-model="listQuery.level" @change="queryLogs"
           class="filter-item" placeholder="日志级别" size="large" style="width: 240px"
           clearable>
-          <el-option v-for="item in logLevelEnum" :key="item.value" :label="item.label" :value="item.value" />
+          <el-option v-for="item in logLevelEnum" :key="item.value" :label="item.label" :value="item.value"/>
         </el-select>
         <el-input class="filter-item" placeholder="traceId" size="large" style="width: 240px"
                   v-model="listQuery.traceId"></el-input>
@@ -41,23 +41,23 @@
       </div>
     </div>
     <!-- 日志列表 -->
-    <div class="table-container" style="width: 100%">
+    <div class="table-container" style="width: 100%;margin-bottom: 50px">
       <el-table :data="logs.records" v-loading="tableLoading"
                 @sort-change="sortChange" border>
-        <el-table-column prop="level" label="级别" width="80" />
-        <el-table-column prop="traceId" label="traceId" width="150" />
+        <el-table-column prop="level" label="级别" width="80"/>
+        <el-table-column prop="traceId" label="traceId" width="150"/>
         <el-table-column prop="messageHighlight" label="message" min-width="400">
           <template #default="scope">
-            <div v-html="scope.row.messageHighlight" />
+            <auto-hide-text :text="scope.row.messageHighlight"/>
             <el-button v-if="hasException(scope.row)" type="primary" :icon="MagicStick"
                        @click="handleFixException(scope.row)">异常分析
             </el-button>
           </template>
         </el-table-column>
-        <el-table-column prop="logger" label="logger" width="150" />
-        <el-table-column prop="thread" label="thread" width="150" />
+        <el-table-column prop="logger" label="logger" width="150"/>
+        <el-table-column prop="thread" label="thread" width="150"/>
         <el-table-column prop="time" label="时间" width="200" sortable="custom"
-                         :sort-orders="['ascending', 'descending']" />
+                         :sort-orders="['ascending', 'descending']"/>
       </el-table>
     </div>
 
@@ -106,7 +106,7 @@
           </div>
           <div class="dialog-bubble">
             <TypeIt v-if="exceptionDiagnosisForm.suggestionMessage"
-                    :values="exceptionDiagnosisForm.suggestionMessage" :key="exceptionDiagnosisForm.key" />
+                    :values="exceptionDiagnosisForm.suggestionMessage" :key="exceptionDiagnosisForm.key"/>
           </div>
         </div>
       </div>
@@ -117,22 +117,23 @@
 
 <script lang="ts" setup>
 import * as api from "@/api/appLog";
-import { reactive, ref } from "vue";
+import {reactive, ref} from "vue";
 import Pagination from "@/components/Pagination/index.vue";
 import DateTimePicker from "@/components/DateTimePicker/index.vue";
-import { MagicStick } from "@element-plus/icons-vue";
+import {MagicStick} from "@element-plus/icons-vue";
 import TypeIt from "@/components/ReTypeit";
-import { ElMessage } from "element-plus";
+import {ElMessage} from "element-plus";
+import AutoHideText from "@/components/AutoHideText/index.vue";
 
 defineOptions({
   name: "SearchAppLog"
 });
 
 const logLevelEnum = {
-  DEBUG: { label: "DEBUG", value: 2 },
-  INFO: { label: "INFO", value: 3 },
-  WARN: { label: "WARN", value: 4 },
-  ERROR: { label: "ERROR", value: 5 }
+  DEBUG: {label: "DEBUG", value: 2},
+  INFO: {label: "INFO", value: 3},
+  WARN: {label: "WARN", value: 4},
+  ERROR: {label: "ERROR", value: 5}
 };
 
 //查询日志
@@ -195,7 +196,6 @@ queryApps();
 //判断日志中是否包含异常信息
 let exceptionRegex = /\..*?Exception/g;
 const hasException = (row) => {
-  console.log(row);
   return row.level === logLevelEnum.ERROR.label && exceptionRegex.test(row.message);
 };
 

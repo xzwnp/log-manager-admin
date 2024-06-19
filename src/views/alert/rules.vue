@@ -46,15 +46,15 @@
           <el-tag :type="scope.row.enabled?'success':'warning'">{{ scope.row.enabled ? "启用" : "禁用" }}</el-tag>
         </template>
       </el-table-column>
-      <el-table-column prop="level" label="告警级别" width="150">
+      <el-table-column prop="level" label="告警级别" width="100">
         <template #default="scope">
           {{ ObjectUtil.parseEnums(AlertLevelEnum, scope.row.level) }}
         </template>
       </el-table-column>
-      <el-table-column prop="description" label="规则描述" min-width="300" />
-      <el-table-column prop="createdTime" label="创建时间" width="200" />
-      <el-table-column prop="updatedTime" label="最后更新时间" width="200" />
-      <el-table-column label="操作" width="300">
+      <el-table-column prop="description" label="规则描述" min-width="280" />
+      <el-table-column prop="createdTime" label="创建时间" width="170" />
+      <el-table-column prop="updatedTime" label="最后更新时间" width="170" />
+      <el-table-column label="操作" width="250">
         <template #default="scope">
           <el-button type="warning" v-if="scope.row.enabled" @click="handleEnableAlert(scope.row.id,false)">
             禁用

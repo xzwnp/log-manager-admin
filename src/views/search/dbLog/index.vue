@@ -7,13 +7,13 @@
           v-model="listQuery.appName" @change="()=>{listQuery.group = null}"
           class="filter-item" placeholder="应用名称" size="large" style="width: 240px"
           clearable>
-          <el-option v-for="item in Object.keys(apps)" :key="item" :label="item" :value="item" />
+          <el-option v-for="item in Object.keys(apps)" :key="item" :label="item" :value="item"/>
         </el-select>
         <el-select
           v-model="listQuery.group" @change="queryLogs"
           class="filter-item" placeholder="分组名称" size="large" style="width: 240px"
           clearable>
-          <el-option v-for="item in apps[listQuery.appName]" :key="item" :label="item" :value="item" />
+          <el-option v-for="item in apps[listQuery.appName]" :key="item" :label="item" :value="item"/>
         </el-select>
         <el-input class="filter-item" placeholder="数据库名称" size="large" style="width: 240px"
                   v-model="listQuery.database"></el-input>
@@ -26,8 +26,9 @@
                    style="width:150px;margin-left: 40px">查 询
         </el-button>
       </div>
-      <div style="margin-top: 10px;margin-bottom: 5px;display: flex;flex-direction: column;width: 45%">
-        <span style="display: flex">
+      <div style="display: flex">
+        <div style="margin-top: 10px;margin-bottom: 5px;display: flex;flex-direction: column;width: 45%">
+          <span style="display: flex">
           <el-text size="large">
             多字段匹配:
           </el-text>
@@ -36,13 +37,13 @@
                      @click="listQuery.keywordGroups.push({})">增加一行</el-button>
         </span>
 
-        <span v-for="keywordGroup in listQuery.keywordGroups"
-              style="margin-top: 10px;display:flex;justify-content: space-between">
+          <span v-for="keywordGroup in listQuery.keywordGroups"
+                style="margin-top: 10px;display:flex;justify-content: space-between">
           <el-text class="filter-item">
             字段类型:
             <el-switch v-model="keywordGroup.matchNewColumn"
                        active-text="变更后" inactive-text="变更前"
-                       style="--el-switch-on-color: #13ce66; --el-switch-off-color: #E6A23C" />
+                       style="--el-switch-on-color: #13ce66; --el-switch-off-color: #E6A23C"/>
           </el-text>
 
           <el-input placeholder="字段名称" style="width: 240px"
@@ -50,18 +51,27 @@
           <el-input placeholder="字段值" style="width: 240px"
                     v-model="keywordGroup.columnValue"></el-input>
         </span>
+        </div>
+        <div style="flex: 1"></div>
+
+        <div style="float: right">
+          仅显示差异字段:
+          <el-switch v-model="showDiffColumnOnly"
+                     active-text="是" inactive-text="否"
+                     style="--el-switch-on-color: #13ce66; --el-switch-off-color: #E6A23C"/>
+        </div>
       </div>
     </div>
     <!-- 日志列表 -->
-    <div class="table-container">
+    <div class="table-container" style="margin-bottom: 40px">
       <el-table :data="logs.records" border v-loading="tableLoading" @sort-change="sortChange">
         <el-table-column prop="changeType" label="变更类型" width="100" class-name="cell-vertical-top">
           <template v-slot="scope">
             <el-tag>{{ parseEnums(changeTypeEnum, scope.row.changeType) }}</el-tag>
           </template>
         </el-table-column>
-        <el-table-column prop="database" label="数据库" width="150" class-name="cell-vertical-top" />
-        <el-table-column prop="table" label="表" width="150" class-name="cell-vertical-top" />
+        <el-table-column prop="database" label="数据库" width="150" class-name="cell-vertical-top"/>
+        <el-table-column prop="table" label="表" width="150" class-name="cell-vertical-top"/>
         <!--      <el-table-column prop="success" label="操作结果" width="150">-->
         <!--        <template v-slot="scope">-->
         <!--          <el-tag v-if="scope.row.success" type="success">操作成功</el-tag>-->
@@ -71,7 +81,7 @@
         <el-table-column prop="oldColumns" label="变更前" min-width="300" header-align="center"
                          class-name="cell-vertical-top">
           <template v-slot="scope">
-            <el-table :data="Object.keys(scope.row.oldColumns)">
+            <el-table v-if="!showDiffColumnOnly" :data="Object.keys(scope.row.oldColumns)">
               <el-table-column label="字段名">
                 <template v-slot="scope1">{{ scope1.row }}</template>
               </el-table-column>
@@ -79,12 +89,13 @@
                 <template v-slot="scope1">{{ scope.row.oldColumns[scope1.row] }}</template>
               </el-table-column>
             </el-table>
+            <div v-else>--已隐藏--</div>
           </template>
         </el-table-column>
         <el-table-column prop="newColumns" label="变更后" min-width="300" header-align="center"
                          class-name="cell-vertical-top">
           <template v-slot="scope">
-            <el-table :data="Object.keys(scope.row.newColumns)">
+            <el-table v-if="!showDiffColumnOnly" :data="Object.keys(scope.row.newColumns)">
               <el-table-column label="字段名">
                 <template v-slot="scope1">{{ scope1.row }}</template>
               </el-table-column>
@@ -92,6 +103,7 @@
                 <template v-slot="scope1">{{ scope.row.newColumns[scope1.row] }}</template>
               </el-table-column>
             </el-table>
+            <div v-else>--已隐藏--</div>
           </template>
         </el-table-column>
         <el-table-column prop="diffColumns" label="差异字段" min-width="300" header-align="center"
@@ -111,11 +123,12 @@
           </template>
         </el-table-column>
         <el-table-column prop="time" label="时间" width="200" sortable="custom"
-                         :sort-orders="['ascending', 'descending']" class-name="cell-vertical-top" />
+                         :sort-orders="['ascending', 'descending']" class-name="cell-vertical-top"/>
       </el-table>
     </div>
     <div class="pagination-container">
-      <pagination class="pagination-container" :total="logs.total" v-model:page="listQuery.current" v-model:size="listQuery.size"
+      <pagination class="pagination-container" :total="logs.total" v-model:page="listQuery.current"
+                  v-model:size="listQuery.size"
                   @pagination="queryLogs"></pagination>
     </div>
   </div>
@@ -123,20 +136,20 @@
 
 <script lang="ts" setup>
 import * as api from "@/api/dbLog";
-import { reactive, ref } from "vue";
+import {reactive, ref} from "vue";
 import Pagination from "@/components/Pagination/index.vue";
 import DateTimePicker from "@/components/DateTimePicker/index.vue";
-import { Plus } from "@element-plus/icons-vue";
-import { copyObject, notBlank, parseEnums } from "@/utils/objectUtil";
+import {Plus} from "@element-plus/icons-vue";
+import {copyObject, notBlank, parseEnums} from "@/utils/objectUtil";
 
 defineOptions({
   name: "SearchOperateLog"
 });
 
 const changeTypeEnum = {
-  INSERT: { label: "INSERT", value: 1 },
-  UPDATE: { label: "UPDATE", value: 2 },
-  DELETE: { label: "DELETE", value: 3 }
+  INSERT: {label: "INSERT", value: 1},
+  UPDATE: {label: "UPDATE", value: 2},
+  DELETE: {label: "DELETE", value: 3}
 };
 
 //查询日志
@@ -152,7 +165,7 @@ const listQuery = reactive({
   database: null,
   table: null,
   changeType: null,
-  keywordGroups: <any>[{ matchNewColumn: false }],
+  keywordGroups: <any>[{matchNewColumn: false}],
   startTime: null,
   endTime: null,
   timeRange: [],
@@ -193,6 +206,8 @@ const queryApps = () => {
     console.log("keys", Object.keys(apps.value));
   });
 };
+
+const showDiffColumnOnly = ref(false)
 
 //created
 queryApps();

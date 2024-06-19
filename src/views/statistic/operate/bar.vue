@@ -72,7 +72,8 @@ watch(
           type: "category",
           data: props.xAxis,
           axisLabel: {
-            fontSize: "0.875rem"
+            fontSize: "0.875rem",
+            interval:0,
           },
           axisPointer: {
             type: "shadow"

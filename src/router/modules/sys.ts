@@ -13,7 +13,8 @@ export default {
       component: () => import("@/views/sys/user/index.vue"),
       meta: {
         title: "用户管理",
-        showParent: true
+        showParent: true,
+        roles: ["sys_admin"]
       }
     },
     {

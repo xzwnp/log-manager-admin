@@ -20,7 +20,7 @@ const { VITE_BASE_URL } = import.meta.env;
 const defaultConfig: AxiosRequestConfig = {
   baseURL: VITE_BASE_URL,
   // 请求超时时间
-  timeout: 10000,
+  timeout: 15000,
   headers: {
     Accept: "application/json, text/plain, */*",
     "Content-Type": "application/json",
